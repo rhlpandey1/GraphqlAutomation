@@ -1,0 +1,7 @@
+{
+  "book": {
+    "title": "Book Lifecycle Test",
+    "author": "Automation Framework",
+    "price": 500.0
+  }
+}

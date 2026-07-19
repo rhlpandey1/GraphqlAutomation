@@ -61,4 +61,31 @@ public final class GraphQLAssertions {
         assertThat(response.jsonPath().getDouble("data.createBook.price"))
                 .isCloseTo(expectedPrice, offset(0.001));
     }
+    public static void assertBookUpdated(
+            Response response,
+            String expectedTitle,
+            String expectedAuthor,
+            double expectedPrice
+    ) {
+        assertSuccessfulResponse(response);
+
+        assertThat(response.jsonPath().getString("data.updateBook.id"))
+                .isNotBlank();
+
+        assertThat(response.jsonPath().getString("data.updateBook.title"))
+                .isEqualTo(expectedTitle);
+
+        assertThat(response.jsonPath().getString("data.updateBook.author"))
+                .isEqualTo(expectedAuthor);
+
+        assertThat(response.jsonPath().getDouble("data.updateBook.price"))
+                .isCloseTo(expectedPrice, offset(0.001));
+    }
+
+    public static void assertBookDeleted(Response response) {
+        assertSuccessfulResponse(response);
+
+        assertThat(response.jsonPath().getBoolean("data.deleteBook"))
+                .isTrue();
+    }
 }
