@@ -88,4 +88,26 @@ public final class GraphQLAssertions {
         assertThat(response.jsonPath().getBoolean("data.deleteBook"))
                 .isTrue();
     }
+    public static void assertGraphQLError(
+            Response response,
+            String expectedErrorText
+    ) {
+        assertThat(response.statusCode())
+                .as("HTTP response:%n%s", response.asPrettyString())
+                .isEqualTo(200);
+
+        Object graphQlErrors = response.jsonPath().get("errors");
+
+        assertThat(graphQlErrors)
+                .as("Expected GraphQL errors but received:%n%s",
+                        response.asPrettyString())
+                .isNotNull();
+
+        String errorMessage = response.jsonPath()
+                .getString("errors[0].message");
+
+        assertThat(errorMessage)
+                .as("GraphQL error response:%n%s", response.asPrettyString())
+                .containsIgnoringCase(expectedErrorText);
+    }
 }

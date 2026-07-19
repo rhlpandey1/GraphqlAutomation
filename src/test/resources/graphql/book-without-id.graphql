@@ -1,0 +1,6 @@
+query BookWithoutId {
+    book {
+        id
+        title
+    }
+}

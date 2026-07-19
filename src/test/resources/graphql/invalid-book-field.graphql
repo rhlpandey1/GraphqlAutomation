@@ -1,0 +1,6 @@
+query InvalidBookField {
+    books {
+        id
+        invalidField
+    }
+}
